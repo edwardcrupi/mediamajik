@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  owner: MyString
+  size: 1.5
+  type: 
+  url: MyString
+
+two:
+  owner: MyString
+  size: 1.5
+  type: 
+  url: MyString
