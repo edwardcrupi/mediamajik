@@ -5,4 +5,11 @@ class Image < ActiveRecord::Base
 
 	mount_uploader :image, ImageUploader
 
+	def dimensions
+		img = Magick::Image::read("#{Rails.root}/public"+image_url(:image).to_s).first
+		self.width  = img.columns
+		self.height = img.rows
+		self.save
+	end
+
 end

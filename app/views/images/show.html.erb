@@ -2,12 +2,12 @@
 
 <p>
   <strong>Image:</strong>
-  <%= @image.length %>
+  <%= image_tag @image.image_url(:image).to_s %>
 </p>
 
 <p>
-  <strong>Length:</strong>
-  <%= @image.length %>
+  <strong>Height:</strong>
+  <%= @image.height %>
 </p>
 
 <p>

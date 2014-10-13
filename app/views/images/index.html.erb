@@ -4,7 +4,7 @@
   <thead>
     <tr>
       <th>Image</th>
-      <th>Length</th>
+      <th>Height</th>
       <th>Width</th>
       <th>Title</th>
       <th>Caption</th>
@@ -15,8 +15,8 @@
   <tbody>
     <% @images.each do |image| %>
       <tr>
-        <td><%= image_tag image.image_url(:thumb).to_s %></td>
-        <td><%= image.length %></td>
+        <td><%= link_to image_tag(image.image_url(:thumb).to_s), image %></td>
+        <td><%= image.height %></td>
         <td><%= image.width %></td>
         <td><%= image.title %></td>
         <td><%= image.caption %></td>

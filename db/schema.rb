@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 20141013082546) do
   end
 
   create_table "images", force: true do |t|
-    t.float    "length"
+    t.float    "height"
     t.float    "width"
     t.string   "title"
     t.text     "caption"
