@@ -38,3 +38,15 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 gem 'tzinfo-data', platforms: [:x64_mingw, :mswin, :mingw]
+
+# Use paper trail for versioning
+gem 'paper_trail', '~> 3.0.6'
+
+# Use devise for authentication
+gem 'devise'
+
+# Use carrierwave for uploading
+gem 'carrierwave'
+
+# Use R 
+gem 'rmagick', '2.13.2'
