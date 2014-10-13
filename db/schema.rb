@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141013080329) do
+ActiveRecord::Schema.define(version: 20141013081129) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,11 @@ ActiveRecord::Schema.define(version: 20141013080329) do
     t.float    "saturation"
     t.float    "contrast"
     t.float    "brightness"
+  end
+
+  create_table "effects_images", id: false, force: true do |t|
+    t.integer "image_id",  null: false
+    t.integer "effect_id", null: false
   end
 
   create_table "filters", force: true do |t|
