@@ -16,10 +16,12 @@
 #
 default: &default
   adapter: postgresql
-  encoding: unicode
+  encoding: utf8
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
+  username: postgres
+  password: 1111
 
 development:
   <<: *default
@@ -81,5 +83,5 @@ test:
 production:
   <<: *default
   database: MediaMajik_production
-  username: MediaMajik
-  password: <%= ENV['MEDIAMAJIK_DATABASE_PASSWORD'] %>
+  #username: MediaMajik
+  #password: <%= ENV['MEDIAMAJIK_DATABASE_PASSWORD'] %>
