@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class MediaTest < ActiveSupport::TestCase
+class EffectTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

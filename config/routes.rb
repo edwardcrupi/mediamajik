@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :effects
+
+  resources :users
+
   resources :galleries
 
   resources :images
