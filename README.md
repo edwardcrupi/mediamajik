@@ -14,10 +14,10 @@ This README documents the normal steps to get the MediaMajik app running.
 ### Todos ###
 
 * Todo list.
-* Finish off the component diagram.
+* ~~Finish off the component diagram~~.
 
 ### Notes ###
-* Changed the structure of the app from what is listed in the componenent diagram:
+* Changed the structure of the app from what is listed in the class diagram:
 	+ Got rid of the File->Image inheritance and just made them one class for simplicity.
 	+ Got rid of the Effect->Filter inheritance and just made them one class for simplicity.
 
