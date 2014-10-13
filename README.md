@@ -14,3 +14,4 @@ This README documents the normal steps to get the MediaMajik app running.
 ### TODO: ###
 
 * Todo list.
+* Finish off the component diagram.
