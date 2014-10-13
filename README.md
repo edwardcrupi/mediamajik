@@ -23,4 +23,4 @@ This README documents the normal steps to get the MediaMajik app running.
 
 ### Class Diagram ###
 
-![Class Diagram](Class-Diagram.pdf)
+![Class Diagram](Class-Diagram.png)
