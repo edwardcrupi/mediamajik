@@ -20,3 +20,7 @@ This README documents the normal steps to get the MediaMajik app running.
 * Changed the structure of the app from what is listed in the componenent diagram:
 	+ Got rid of the File->Image inheritance and just made them one class for simplicity.
 	+ Got rid of the Effect->Filter inheritance and just made them one class for simplicity.
+
+### Class Diagram ###
+
+![Class Diagram](Class-Diagram.pdf)
