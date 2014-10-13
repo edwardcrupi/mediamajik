@@ -13,8 +13,12 @@ This README documents the normal steps to get the MediaMajik app running.
 
 ### Todos ###
 
-* Todo list.
-* ~~Finish off the component diagram~~.
+* ~~Finish off adding the components in the class diagram to the app~~.
+* ~~Add ability to upload images~~
+* Add authentication using devise.
+* Add versioning.
+* Add sharing.
+* Add galleries.
 
 ### Notes ###
 * Changed the structure of the app from what is listed in the class diagram:

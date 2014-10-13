@@ -49,4 +49,4 @@ gem 'devise'
 gem 'carrierwave'
 
 # Use R 
-gem 'rmagick', '2.13.2'
+gem 'rmagick', '2.13.2', require: false
