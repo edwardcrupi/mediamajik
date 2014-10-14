@@ -24,7 +24,7 @@
         <td><%= link_to 'Edit', edit_image_path(image) %></td>
         <td><%= link_to 'Destroy', image, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <td><% unless image.galleries.empty? then image.galleries.each do |gallery| %>
-          <%= link_to(gallery.owner, gallery_path(gallery)) %><br>
+          <%= link_to(gallery.id, gallery_path(gallery)) %><br>
         <% end end %>
         <%= link_to('Add to gallery...', galleries_selection_path(image)) %>
         </td>
