@@ -1,10 +1,9 @@
 class GalleriesController < ApplicationController
-  before_action :set_gallery, only: [:show, :edit, :update, :destroy]
+  helper_method :gallery, :galleries, :image
 
   # GET /galleries
   # GET /galleries.json
   def index
-    @galleries = Gallery.all
   end
 
   # GET /galleries/1
@@ -21,15 +20,30 @@ class GalleriesController < ApplicationController
   def edit
   end
 
+  def select
+  end
+
+  def add
+    gallery.add_image(image)
+    gallery.save
+    redirect_to galleries_selection_path(image)
+  end
+
+  def remove
+    gallery.remove_image(image)
+    gallery.save
+    redirect_to galleries_selection_path(image)
+  end
+
   # POST /galleries
   # POST /galleries.json
   def create
-    @gallery = Gallery.new(gallery_params)
+    gallery = Gallery.new(gallery_params)
 
     respond_to do |format|
-      if @gallery.save
-        format.html { redirect_to @gallery, notice: 'Gallery was successfully created.' }
-        format.json { render :show, status: :created, location: @gallery }
+      if gallery.save
+        format.html { redirect_to gallery, notice: 'Gallery was successfully created.' }
+        format.json { render :show, status: :created, location: gallery }
       else
         format.html { render :new }
         format.json { render json: @gallery.errors, status: :unprocessable_entity }
@@ -41,12 +55,12 @@ class GalleriesController < ApplicationController
   # PATCH/PUT /galleries/1.json
   def update
     respond_to do |format|
-      if @gallery.update(gallery_params)
-        format.html { redirect_to @gallery, notice: 'Gallery was successfully updated.' }
-        format.json { render :show, status: :ok, location: @gallery }
+      if gallery.update(gallery_params)
+        format.html { redirect_to gallery, notice: 'Gallery was successfully updated.' }
+        format.json { render :show, status: :ok, location: gallery }
       else
         format.html { render :edit }
-        format.json { render json: @gallery.errors, status: :unprocessable_entity }
+        format.json { render json: gallery.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -54,21 +68,29 @@ class GalleriesController < ApplicationController
   # DELETE /galleries/1
   # DELETE /galleries/1.json
   def destroy
-    @gallery.destroy
+    gallery.destroy
     respond_to do |format|
       format.html { redirect_to galleries_url, notice: 'Gallery was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
+  def gallery
+    @gallery ||= Gallery.find(params[:id])
+  end
+
+  def galleries
+    @galleries ||= Gallery.all
+  end
+
+  def image
+    @image ||= Image.find(params[:image_id])
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_gallery
-      @gallery = Gallery.find(params[:id])
-    end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def gallery_params
-      params.require(:gallery).permit(:owner, :number_of_images)
+      params.require(:gallery).permit(:owner)
     end
 end

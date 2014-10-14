@@ -7,11 +7,17 @@ Rails.application.routes.draw do
 
   resources :images
 
+  devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-   root 'images#index'
+  root 'images#index'
+
+  get 'galleries/:id/add-image/:image_id' => 'galleries#add', as: :add_to_gallery
+  get 'galleries/:id/remove-image/:image_id' => 'galleries#remove', as: :remove_from_gallery
+  get 'image/galleries/:image_id' => 'galleries#select', as: :galleries_selection
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -39,6 +45,11 @@ Rails.application.routes.draw do
   #     resources :comments, :sales
   #     resource :seller
   #   end
+
+  resources :users do
+    resources :galleries
+    resources :images
+  end
 
   # Example resource route with more complex sub-resources:
   #   resources :products do

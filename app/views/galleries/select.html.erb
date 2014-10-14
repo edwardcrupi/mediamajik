@@ -1,0 +1,21 @@
+<h1>Select galleries</h1>
+
+<table>
+  <%= render partial: "gallery_table_heading" %>
+
+  <tbody>
+    <% galleries.each do |gallery| %>
+    <tr>
+    	<%= render partial: "gallery_row", locals: {gallery: gallery} %>
+	    	<td>
+	      		<%= if image.galleries.include?(gallery) then link_to "Chosen.", remove_from_gallery_url(gallery, image) else link_to "Choose", add_to_gallery_path(gallery, image) end %>
+	    	</td>
+    <% end %>
+    </tr>
+	
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Gallery', new_gallery_path %>

@@ -21,6 +21,10 @@ class UsersController < ApplicationController
   def edit
   end
 
+  def galleries
+    @galleries = User.galleries
+  end
+
   # POST /users
   # POST /users.json
   def create
