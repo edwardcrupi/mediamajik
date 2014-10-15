@@ -5,7 +5,9 @@
 
   <tbody>
     <% galleries.each do |gallery| %>
+    <tr>
     	<%= render partial: "select_gallery_row", locals: {gallery: gallery, image: image} %>
+    </tr>
     <% end %>
   </tbody>
 </table>
