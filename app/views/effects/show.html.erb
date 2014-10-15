@@ -1,9 +1,15 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @effect.name %>
+  <strong>Type:</strong>
+  <%= @effect.effect_type %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @effect.amount %>
 </p>
 
 <%= link_to 'Edit', edit_effect_path(@effect) %> |
+<%= link_to 'Apply to..', images_selection_path(@effect) %> |
 <%= link_to 'Back', effects_path %>

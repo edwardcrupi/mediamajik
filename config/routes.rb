@@ -14,10 +14,14 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'images#index'
 
-  get 'galleries/:id/add-image/:image_id' => 'galleries#add', as: :add_to_gallery
-  get 'galleries/:id/remove-image/:image_id' => 'galleries#remove', as: :remove_from_gallery
+  # Routes for additing and removing images from galleries
+  post 'galleries/:id/add-image/:image_id' => 'galleries#add', as: :add_to_gallery
+  post 'galleries/:id/remove-image/:image_id' => 'galleries#remove', as: :remove_from_gallery
   get 'image/galleries/:image_id' => 'galleries#select', as: :galleries_selection
-
+  
+  # Routes for appling effects to images
+  get 'effect/images/:effect_id' => 'images#select', as: :images_selection
+  post 'effects/:effect_id/apply-effect/:id' => 'images#apply_effect', as: :apply_effect
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

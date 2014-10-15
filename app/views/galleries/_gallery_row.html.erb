@@ -1,5 +1,7 @@
-<td><%= gallery.id %>
-<td><%= gallery.images.count %>
-<td><%= link_to 'Show', gallery %></td>
-<td><%= link_to 'Edit', edit_gallery_path(gallery) %></td>
-<td><%= link_to 'Destroy', gallery, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+<tr>
+	<td><%= gallery.id %></td>
+	<td><%= gallery.images.count %></td>
+	<td><%= link_to 'Show', gallery %></td>
+	<td><%= link_to 'Edit', edit_gallery_path(gallery) %></td>
+	<td><%= link_to 'Destroy', gallery, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>

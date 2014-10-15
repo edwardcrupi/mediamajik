@@ -14,6 +14,24 @@ class Image < ActiveRecord::Base
 		img = Magick::Image::read("#{Rails.root}/public"+image_url(:image).to_s).first
 		self.width  = img.columns
 		self.height = img.rows
+		self.size 	= img.filesize
+	end
+
+	def apply_effect effect
+		image_url = "#{Rails.root}/public"+image_url(:thumb).to_s
+		img = Magick::Image::read(image_url).first
+		case effect.effect_type
+		when "Brightness"
+			img = img.modulate(effect.amount, 1, 1)
+		when "Saturation"
+			img = img.modulate(1, effect.amount, 1)
+		when "Hue"
+			img = img.modulate(1, 1, effect.amount)
+		when "Contrast"			
+		end
+		img.write(img.filename)
+		load = ImageUploader.new
+		load.store!(img)
 	end
 
 end

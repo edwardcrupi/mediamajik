@@ -2,28 +2,33 @@
 
 <p>
   <strong>Image:</strong>
-  <%= image_tag @image.image_url(:image).to_s %>
+  <%= image_tag image.image_url(:image).to_s %>
 </p>
 
 <p>
   <strong>Height:</strong>
-  <%= @image.height %>
+  <%= image.height %>
 </p>
 
 <p>
   <strong>Width:</strong>
-  <%= @image.width %>
+  <%= image.width %>
 </p>
 
 <p>
   <strong>Title:</strong>
-  <%= @image.title %>
+  <%= image.title %>
 </p>
 
 <p>
   <strong>Caption:</strong>
-  <%= @image.caption %>
+  <%= image.caption %>
 </p>
 
-<%= link_to 'Edit', edit_image_path(@image) %> |
+<p>
+ <strong>Size:</strong>
+ <%= image.size.to_i %> bytes
+</p>
+
+<%= link_to 'Edit', edit_image_path(image) %> |
 <%= link_to 'Back', images_path %>

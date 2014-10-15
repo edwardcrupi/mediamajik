@@ -1,0 +1,6 @@
+<tr>
+	<%= render partial: "image_row", locals: {image: image} %>
+	<td>
+	<%= link_to "Apply effect", apply_effect_path(effect, image), method: :post %>
+	</td>
+</tr>

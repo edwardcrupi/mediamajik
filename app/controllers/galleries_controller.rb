@@ -23,12 +23,14 @@ class GalleriesController < ApplicationController
   def select
   end
 
+  # POST /galleries/1/add-image/1
   def add
     gallery.add_image(image)
     gallery.save
     redirect_to galleries_selection_path(image)
   end
 
+  # POST /galleries/1/remove-image/1
   def remove
     gallery.remove_image(image)
     gallery.save

@@ -69,6 +69,6 @@ class EffectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def effect_params
-      params.require(:effect).permit(:name)
+      params.require(:effect).permit(:effect_type, :amount)
     end
 end

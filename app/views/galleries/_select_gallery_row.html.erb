@@ -1,0 +1,5 @@
+<tr>
+	<%= render partial: "gallery_row" locals: {gallery: gallery} %>
+		<%= if image.galleries.include?(gallery) then link_to "Chosen.", remove_from_gallery_url(gallery, image), method: :post else link_to "Choose", add_to_gallery_path(gallery, image), method: :post end %>
+	</td>
+</tr>

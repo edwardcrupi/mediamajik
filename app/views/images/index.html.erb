@@ -1,34 +1,18 @@
 <h1>Listing images</h1>
 
 <table>
-  <thead>
-    <tr>
-      <th>Image</th>
-      <th>Height</th>
-      <th>Width</th>
-      <th>Title</th>
-      <th>Caption</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <%= render partial: 'image_table_heading' %>
 
   <tbody>
-    <% @images.each do |image| %>
-      <tr>
-        <td><%= link_to image_tag(image.image_url(:thumb).to_s), image %></td>
-        <td><%= image.height %></td>
-        <td><%= image.width %></td>
-        <td><%= image.title %></td>
-        <td><%= image.caption %></td>
-        <td><%= link_to 'Show', image %></td>
-        <td><%= link_to 'Edit', edit_image_path(image) %></td>
-        <td><%= link_to 'Destroy', image, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td><% unless image.galleries.empty? then image.galleries.each do |gallery| %>
-          <%= link_to(gallery.id, gallery_path(gallery)) %><br>
-        <% end end %>
-        <%= link_to('Add to gallery...', galleries_selection_path(image)) %>
-        </td>
-      </tr>
+    <% images.each do |image| %>
+    <tr>
+      <%= render partial: 'image_row', locals: {image: image} %>
+      	<td><% unless image.galleries.empty? then image.galleries.each do |gallery| %>
+	  	<%= link_to(gallery.id, gallery_path(gallery)) %><br>
+		<% end end %>
+			<%= link_to('Add to gallery...', galleries_selection_path(image)) %>
+		</td>
+	</tr>
     <% end %>
   </tbody>
 </table>

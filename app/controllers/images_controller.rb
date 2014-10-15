@@ -1,10 +1,9 @@
 class ImagesController < ApplicationController
-  before_action :set_image, only: [:show, :edit, :update, :destroy]
+  helper_method :image, :images, :effect
 
   # GET /images
   # GET /images.json
   def index
-    @images = Image.all
   end
 
   # GET /images/1
@@ -21,6 +20,16 @@ class ImagesController < ApplicationController
   def edit
   end
 
+  # GET /effects/images/1
+  def select
+  end
+
+  # POST /effects/1/apply-effect/1
+  def apply_effect
+    image.apply_effect(effect)
+    image.save!
+    redirect_to images_selection_path(effect)
+  end
   # POST /images
   # POST /images.json
   def create
@@ -54,19 +63,27 @@ class ImagesController < ApplicationController
   # DELETE /images/1
   # DELETE /images/1.json
   def destroy
-    @image.destroy
+    image.destroy
     respond_to do |format|
       format.html { redirect_to images_url, notice: 'Image was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
-  private
     # Use callbacks to share common setup or constraints between actions.
-    def set_image
-      @image = Image.find(params[:id])
+    def image
+      @image  = Image.find(params[:id])
     end
 
+    def images
+      @images = Image.all
+    end
+
+    def effect
+      @effect = Effect.find(params[:effect_id]) 
+    end
+
+  private
     # Never trust parameters from the scary internet, only allow the white list through.
     def image_params
       params.require(:image).permit(:title, :caption, :image)

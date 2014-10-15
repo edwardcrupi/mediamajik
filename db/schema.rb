@@ -11,19 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141014103040) do
+ActiveRecord::Schema.define(version: 20141015054105) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "effects", force: true do |t|
-    t.string   "name"
+    t.string   "effect_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "hue"
     t.float    "saturation"
     t.float    "contrast"
     t.float    "brightness"
+    t.float    "amount"
   end
 
   create_table "effects_images", id: false, force: true do |t|
