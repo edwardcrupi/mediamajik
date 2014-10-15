@@ -1,7 +1,7 @@
 class Gallery < ActiveRecord::Base
 	has_and_belongs_to_many :users
 	has_and_belongs_to_many :images
-	has_many :effects
+	belongs_to :owner, :class_name => "User", :foreign_key =>"user_id"
 
 	def add_image(image)
 		self.images << image

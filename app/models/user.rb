@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
     has_many :images
-	has_and_belongs_to_many :shared_images, :class_name => "Image", :join_table =>"images_users"
-	has_and_belongs_to_many :galleries
+    has_many :galleries
+	has_and_belongs_to_many :shared_images, :class_name => "Image", :join_table => "images_users"
+	has_and_belongs_to_many :shared_galleries, :class_name => "Gallery", :join_table => "galleries_users"
 
 end

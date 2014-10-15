@@ -12,9 +12,9 @@
     <% @effects.each do |effect| %>
       <tr>
         <td><%= effect.name %></td>
-        <td><% link_to 'Show', effect %></td>
-        <td><% link_to 'Edit', edit_effect_path(effect) %></td>
-        <td><% link_to 'Destroy', effect, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', effect %></td>
+        <td><%= link_to 'Edit', edit_effect_path(effect) %></td>
+        <td><%= link_to 'Destroy', effect, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -22,4 +22,4 @@
 
 <br>
 
-<% link_to 'New Effect', new_effect_path %>
+<%= link_to 'New Effect', new_effect_path %>

@@ -91,6 +91,6 @@ class GalleriesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     # Never trust parameters from the scary internet, only allow the white list through.
     def gallery_params
-      params.require(:gallery).permit(:owner)
+      params.require(:gallery).permit(:user_id, :name)
     end
 end

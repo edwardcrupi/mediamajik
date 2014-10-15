@@ -2,6 +2,7 @@ class Image < ActiveRecord::Base
 
 	has_and_belongs_to_many :users
 	has_and_belongs_to_many :galleries
+	has_many :effects
 	belongs_to :owner, :class_name => "User", :foreign_key =>"user_id"
 
 	has_paper_trail
