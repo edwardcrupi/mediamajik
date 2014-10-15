@@ -37,7 +37,7 @@ gem 'spring',        group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-gem 'tzinfo-data', platforms: [:x64_mingw, :mswin, :mingw]
+#gem 'tzinfo-data', platforms: [:x64_mingw, :mswin, :mingw]
 
 # Use paper trail for versioning
 gem 'paper_trail', '~> 3.0.6'
@@ -49,4 +49,4 @@ gem 'devise'
 gem 'carrierwave'
 
 # Use R 
-gem 'rmagick', '2.13.2', require: false
+gem 'rmagick'
