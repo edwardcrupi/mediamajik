@@ -4,16 +4,11 @@
   <%= render partial: 'image_table_heading' %>
 
   <tbody>
-    <% images.each do |image| %>
-    <tr>
-      <%= render partial: 'image_row', locals: {image: image} %>
-      	<td><% unless image.galleries.empty? then image.galleries.each do |gallery| %>
-	  	<%= link_to(gallery.id, gallery_path(gallery)) %><br>
-		<% end end %>
-			<%= link_to('Add to gallery...', galleries_selection_path(image)) %>
-		</td>
-	</tr>
-    <% end %>
+    <% images.each do |image| if image.owner == current_user or current_user.shared_images.include? image %>
+      <tr>
+        <%= render partial: 'image_row', locals: {image: image} %>
+      </tr>
+    <% end end %>
   </tbody>
 </table>
 

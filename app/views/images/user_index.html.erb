@@ -1,0 +1,11 @@
+<h1>Listing Images for <%= user.username %></h1>
+<table>
+	<%= render partial: "image_table_heading" %>
+	<tbody>
+		<%= user.images.each do |image| %>
+			<tr>
+				<%= render partial: "image_row", locals: {image: image} %>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

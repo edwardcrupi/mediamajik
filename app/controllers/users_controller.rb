@@ -1,10 +1,9 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-
+  #before_action :set_user, only: [:show, :edit, :update, :destroy]
+  helper_method :user, :users, :galleries, :image
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
   end
 
   # GET /users/1
@@ -22,9 +21,23 @@ class UsersController < ApplicationController
   end
 
   def galleries
-    @galleries = User.galleries
   end
 
+  def share_image
+    user.share_image image
+    user.save!
+    redirect_to share_image_selection_path(image)
+  end
+
+  def unshare_image
+    user.unshare_image image
+    user.save!
+    redirect_to share_image_selection_path(image)
+  end
+
+  def select_to_share
+  end
+  
   # POST /users
   # POST /users.json
   def create
@@ -45,9 +58,9 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     respond_to do |format|
-      if @user.update(user_params)
+      if user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
+        format.json { render :show, status: :ok, location: user }
       else
         format.html { render :edit }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -58,21 +71,33 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user.destroy
+    user.destroy
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
-  private
     # Use callbacks to share common setup or constraints between actions.
-    def set_user
+    def user
       @user = User.find(params[:id])
     end
 
+    def galleries
+      @galleries = Gallery.all
+    end
+
+    def users
+      @users = User.all
+    end
+
+    def image
+      @image = Image.find(params[:image_id])
+    end
+
+  private
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params[:user]
+      params[:user].require(:username, :email)
     end
 end

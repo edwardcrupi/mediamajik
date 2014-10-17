@@ -3,13 +3,19 @@ Rails.application.routes.draw do
 
   resources :effects
 
-  resources :users
+  #resources :users
 
   resources :galleries
 
   resources :images
 
   devise_for :users
+
+  resources :users, only: [] do
+    resources :galleries
+    resources :images
+  end
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -24,6 +30,11 @@ Rails.application.routes.draw do
   # Routes for appling effects to images
   get 'effect/images/:effect_id' => 'images#select', as: :images_selection
   post 'effects/:effect_id/apply-effect/:id' => 'images#apply_effect', as: :apply_effect
+
+  # Routes for sharing and unsharing images with other users
+  post 'users/:id/images/:image_id/share' => 'users#share_image', as: :share_image
+  post 'users/:id/images/:image_id/unshare' => 'users#unshare_image', as: :unshare_image
+  get 'users/images/:image_id' => 'users#select_to_share', as: :share_image_selection
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -51,11 +62,6 @@ Rails.application.routes.draw do
   #     resources :comments, :sales
   #     resource :seller
   #   end
-
-  resources :users do
-    resources :galleries
-    resources :images
-  end
 
   # Example resource route with more complex sub-resources:
   #   resources :products do

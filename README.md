@@ -18,8 +18,9 @@ This README documents the normal steps to get the MediaMajik app running.
 * ~Add ability to apply filter to images~
 * ~Add authentication.~
 * Add versioning, either with paper-trail or using carrierwave.
-* Add sharing.
+* ~Add sharing.~
 * ~~Add galleries~~.
+* Anything else?
 
 ### Notes ###
 * Changed the structure of the app from what is listed in the class diagram:

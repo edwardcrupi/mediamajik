@@ -3,6 +3,19 @@
 <td><%= image.width %></td>
 <td><%= image.title %></td>
 <td><%= image.caption %></td>
-<td><%= link_to 'Show', image %></td>
-<td><%= link_to 'Edit', edit_image_path(image) %></td>
-<td><%= link_to 'Destroy', image, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+<td><%= image.owner.username.to_s %></td>
+<% if current_user == image.owner %>
+	<td><%= link_to 'Show', image %></td>
+	<td><%= link_to 'Edit', edit_image_path(image) %></td>
+	<td><%= link_to 'Destroy', image, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	<td>
+		<% unless image.galleries.empty? then image.galleries.each do |gallery| %>
+	        <%= link_to(gallery.id, gallery_path(gallery)) %><br>
+	    <% end end %>
+	    <%= link_to 'Add to gallery...', galleries_selection_path(image) %>
+	    <%= link_to 'Share', share_image_selection_path(image) %> 
+		<!--%= link_to('Share', users_selection_path(image)) %-->
+	</td>
+<% else %>
+	<td> This item is shared with you!</td>
+<% end %>

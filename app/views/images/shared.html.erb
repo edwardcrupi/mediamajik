@@ -1,0 +1,14 @@
+<h1>Listing images shared with you</h1>
+<table>
+  <%= render partial: 'image_table_heading' %>
+
+  <tbody>
+    <% current_user.shared_images.each do |image| %>
+      <tr>
+        <%= render partial: 'image_row', locals: {image: image} %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

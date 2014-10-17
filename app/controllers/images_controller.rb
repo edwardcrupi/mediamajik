@@ -1,4 +1,5 @@
 class ImagesController < ApplicationController
+  before_filter :authenticate_user!
   helper_method :image, :images, :effect
 
   # GET /images
@@ -30,10 +31,21 @@ class ImagesController < ApplicationController
     image.save!
     redirect_to images_selection_path(effect)
   end
+
+  # GET /users/1/images
+  def user_index
+    images = user.images
+  end
+
+  def shared
+    images = current_user.shared_images
+  end
+  
   # POST /images
   # POST /images.json
   def create
     @image = Image.new(image_params)
+    @image.owner = current_user
 
     respond_to do |format|
       if @image.save
@@ -83,9 +95,14 @@ class ImagesController < ApplicationController
       @effect = Effect.find(params[:effect_id]) 
     end
 
+    def user
+      @user   = User.find(params[:user_id])
+    end
+
+
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def image_params
-      params.require(:image).permit(:title, :caption, :image)
+      params.require(:image).permit(:title, :caption, :image, :owner)
     end
 end

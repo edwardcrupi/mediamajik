@@ -4,7 +4,7 @@ class Image < ActiveRecord::Base
 	has_and_belongs_to_many :galleries
 	has_many :effects
 	belongs_to :owner, :class_name => "User", :foreign_key =>"user_id"
-
+	#has_many :filters, -> {where "effect_type = 'filter'"}, through: :effects
 	has_paper_trail
 
 	mount_uploader :image, ImageUploader
