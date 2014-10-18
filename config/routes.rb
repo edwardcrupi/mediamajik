@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :effects
 
   #resources :users
+  get 'images/trashed-images' => 'images#trashed_images', as: :trash
+  post 'trash/empty-trash' => 'images#empty_trash', as: :empty_trash 
 
   resources :galleries
 
@@ -35,6 +37,12 @@ Rails.application.routes.draw do
   post 'users/:id/images/:image_id/share' => 'users#share_image', as: :share_image
   post 'users/:id/images/:image_id/unshare' => 'users#unshare_image', as: :unshare_image
   get 'users/images/:image_id' => 'users#select_to_share', as: :share_image_selection
+  get 'users/:id/shared-images' => 'images#shared', as: :shared_images
+
+  # Routes for viewing, adding images to and emptying the trash
+  post 'images/:id/trash' => 'images#trash_image', as: :trash_image
+  post 'images/:id/untrash' => 'images#untrash_image', as: :untrash_image
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

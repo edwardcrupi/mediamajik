@@ -1,3 +1,4 @@
+<h1> Current version </h1>
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -32,3 +33,11 @@
 
 <%= link_to 'Edit', edit_image_path(image) %> |
 <%= link_to 'Back', images_path %>
+
+<h1> Older Versions </h1>
+<% unless image.versions.count == 0 %>
+  <% image.versions.each do |version| unless version.reify.nil? %>
+    <%= image_tag version.reify.image_url(:thumb).to_s %>
+    <%= link_to "Make current", '#' %> |
+    <%= link_to "Destroy version", '#' %>
+<% end end end %>

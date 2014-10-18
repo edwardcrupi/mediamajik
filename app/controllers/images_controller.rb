@@ -37,8 +37,30 @@ class ImagesController < ApplicationController
     images = user.images
   end
 
+  # GET /users/1/image
   def shared
     images = current_user.shared_images
+  end
+
+  def trash_image
+    image.in_trash = true
+    image.save
+    redirect_to images_path
+  end
+
+  def trashed_images
+    @images = Image.where( in_trash: true )
+  end
+
+  def untrash_image
+    image.in_trash = false
+    image.save
+    redirect_to images_path
+  end
+
+  def empty_trash
+    images.each do |image| if image.owner == current_user then image.destroy end end
+    redirect_to images_path
   end
   
   # POST /images
@@ -46,6 +68,7 @@ class ImagesController < ApplicationController
   def create
     @image = Image.new(image_params)
     @image.owner = current_user
+    @image.in_trash = false
 
     respond_to do |format|
       if @image.save
@@ -62,12 +85,12 @@ class ImagesController < ApplicationController
   # PATCH/PUT /images/1.json
   def update
     respond_to do |format|
-      if @image.update(image_params)
-        format.html { redirect_to @image, notice: 'Image was successfully updated.' }
-        format.json { render :show, status: :ok, location: @image }
+      if image.update(image_params)
+        format.html { redirect_to image, notice: 'Image was successfully updated.' }
+        format.json { render :show, status: :ok, location: image }
       else
         format.html { render :edit }
-        format.json { render json: @image.errors, status: :unprocessable_entity }
+        format.json { render json: image.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -82,27 +105,28 @@ class ImagesController < ApplicationController
     end
   end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def image
-      @image  = Image.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def image
+    #@image  ||= params[:id] ? Image.find(params[:id]) : Image.new()
+    @image  ||= Image.find(params[:id])
+  end
 
-    def images
-      @images = Image.all
-    end
+  def images
+    @images ||= Image.all
+  end
 
-    def effect
-      @effect = Effect.find(params[:effect_id]) 
-    end
+  def effect
+    @effect ||= Effect.find(params[:effect_id]) 
+  end
 
-    def user
-      @user   = User.find(params[:user_id])
-    end
+  def user
+    @user   ||= User.find(params[:user_id])
+  end
 
 
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def image_params
-      params.require(:image).permit(:title, :caption, :image, :owner)
+      params.require(:image).permit(:title, :caption, :image, :owner, :in_trash)
     end
 end

@@ -1,0 +1,19 @@
+<h1>Trash</h1>
+<% unless  @images.count == 0 then %>
+	<h4>These items are due to be emptied and can be emptied by clicking "Empty Trash"</h4>
+	<table>
+	  <%= render partial: 'image_table_heading' %>
+
+	  <tbody>
+	  	<h1><%= @images.count%></h1>
+	    <%  @images.each do |image| if image.owner == current_user and image.in_trash then %>
+	      <tr>
+	        <%= render partial: 'image_row', locals: {image: image} %>
+	      </tr>
+    	<% end end %>
+  	  </tbody>
+	</table>
+<% else %>
+    <h5>There are no images in the trash!</h5>  	  
+<% end %>
+<%= link_to "Empty Trash", empty_trash_path, method: :post %>

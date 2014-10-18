@@ -28,6 +28,7 @@
 	            <li><%= link_to "Images", images_path, class:"btn-group" %></li>
 			  	<li><%= link_to "Galleries", galleries_path, class:"btn-group"%></li>
 			  	<li><%= link_to "Effects", effects_path, class:"btn-group"%></li>
+			  	<li><%= link_to "Trash", trash_path, class:"btn-group"%></li>
 	            <li><%= link_to "Log out", destroy_user_session_path, method: :delete, class:"btn-group" %></li>
 	        <% elsif not user_signed_in? %>
 	        	<li><%= link_to "Log In", new_user_session_path, class:"btn-group" %></li>

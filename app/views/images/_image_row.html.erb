@@ -19,3 +19,4 @@
 <% else %>
 	<td> This item is shared with you!</td>
 <% end %>
+<td><%= unless image.in_trash? then link_to 'Trash image?', trash_image_path(image), method: :post else link_to "IN TRASH.", untrash_image_path(image), method: :post end %></td>

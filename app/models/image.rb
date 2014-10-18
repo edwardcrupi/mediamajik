@@ -10,11 +10,13 @@ class Image < ActiveRecord::Base
 	mount_uploader :image, ImageUploader
 	before_save :set_dimensions
 
+	validates :title, :caption, presence: true
 	def set_dimensions
 		img = Magick::Image::read("#{Rails.root}/public"+image_url(:image).to_s).first
 		self.width  = img.columns
 		self.height = img.rows
 		self.size 	= img.filesize
+		if self.v.nil? then self.v = 0 end
 	end
 
 	def apply_effect effect
@@ -29,9 +31,16 @@ class Image < ActiveRecord::Base
 			img = img.modulate(1, 1, effect.amount)
 		when "Contrast"			
 		end
-		img.write(img.filename)
+		self.v = self.v + 1
+		image_url = img.filename+self.v.to_s
+		img.write(image_url)
+		self.image = image_url
 		load = ImageUploader.new
 		load.store!(img)
+	end
+
+	def in_trash?
+		return self.in_trash
 	end
 
 end
