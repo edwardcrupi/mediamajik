@@ -4,7 +4,7 @@
   <%= render partial: 'image_table_heading' %>
 
   <tbody>
-    <% images.each do |image| if image.owner == current_user or current_user.shared_images.include? image %>
+    <% images.each do |image| if image.owner == current_user or current_user.shared_images.include? image and image.root_version? %>
       <tr>
         <%= render partial: 'image_row', locals: {image: image} %>
       </tr>

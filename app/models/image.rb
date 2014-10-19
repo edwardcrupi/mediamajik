@@ -3,24 +3,27 @@ class Image < ActiveRecord::Base
 	has_and_belongs_to_many :users
 	has_and_belongs_to_many :galleries
 	has_many :effects
-	belongs_to :owner, :class_name => "User", :foreign_key =>"user_id"
-	#has_many :filters, -> {where "effect_type = 'filter'"}, through: :effects
+	has_many :child_versions, :class_name => "Image"
+	belongs_to :parent_image, :class_name => "Image", :foreign_key => "image_id"
+	belongs_to :owner, :class_name => "User", :foreign_key => "user_id"
 	has_paper_trail
 
 	mount_uploader :image, ImageUploader
 	before_save :set_dimensions
 
 	validates :title, :caption, presence: true
+
 	def set_dimensions
 		img = Magick::Image::read("#{Rails.root}/public"+image_url(:image).to_s).first
 		self.width  = img.columns
 		self.height = img.rows
 		self.size 	= img.filesize
 		if self.v.nil? then self.v = 0 end
+		self.url 	= img.filename
 	end
 
 	def apply_effect effect
-		image_url = "#{Rails.root}/public"+image_url(:thumb).to_s
+		image_url = "#{Rails.root}/public"+image_url(:image).to_s
 		img = Magick::Image::read(image_url).first
 		case effect.effect_type
 		when "Brightness"
@@ -32,11 +35,38 @@ class Image < ActiveRecord::Base
 		when "Contrast"			
 		end
 		self.v = self.v + 1
-		image_url = img.filename+self.v.to_s
-		img.write(image_url)
-		self.image = image_url
-		load = ImageUploader.new
-		load.store!(img)
+		temp =  image_url(:image).to_s.scan(/(.+)\.([A-Za-z0-9]*)$/).flatten
+		i = Image.create(image: self.image, owner: self.owner, parent_image: self, caption: self.caption, title: self.title, v: self.v)
+		self.child_versions << i
+		i.child_versions = []
+		i.save!
+		self.parent_image = nil
+		image_url = "#{temp[0]}_#{self.v}.#{temp[1]}"
+		src = File.join(Rails.root, 'public', image_url)
+		img.write(src)
+		src_file = File.new(src)
+		self.image = src_file
+		self.image.recreate_versions!
+	end
+
+	def make_current
+		parent = self.parent_image
+		self.child_versions << parent
+		parent.child_versions.delete self
+		parent.parent_image = self
+		self.save!
+		parent.save!
+	end
+
+	def add_child_to image
+	end
+
+	def root_version?
+		return parent_image.nil?
+	end
+
+	def leaf_version?
+		return child_versions.empty?
 	end
 
 	def in_trash?

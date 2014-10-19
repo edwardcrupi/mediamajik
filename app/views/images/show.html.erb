@@ -35,9 +35,11 @@
 <%= link_to 'Back', images_path %>
 
 <h1> Older Versions </h1>
-<% unless image.versions.count == 0 %>
-  <% image.versions.each do |version| unless version.reify.nil? %>
-    <%= image_tag version.reify.image_url(:thumb).to_s %>
-    <%= link_to "Make current", '#' %> |
-    <%= link_to "Destroy version", '#' %>
-<% end end end %>
+<% unless image.child_versions.count == 0 %>
+  <% image.child_versions.each do |version| %>
+    <%= image_tag version.image_url(:thumb).to_s %>
+    <%= link_to "Make current", make_current_version_path(image), method: :patch %> |
+    <%= link_to "Destroy version", image_path(image), method: :delete %>
+<% end else %>
+  <h4>There are no older versions of this image!</h4>
+<% end %>

@@ -4,11 +4,11 @@
   <%= render partial: 'image_table_heading' %>
 
   <tbody>
-    <% images.each do |image| %>
+    <% images.each do |image| if image.owner == current_user and image.root_version? and not image.in_trash? then %>
     <tr>
       <%= render partial: 'select_image_row', locals: {image: image, effect: effect} %>
 	</tr>
-    <% end %>
+    <% end end %>
   </tbody>
 </table>
 

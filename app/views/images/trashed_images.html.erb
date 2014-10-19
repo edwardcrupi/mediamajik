@@ -5,8 +5,8 @@
 	  <%= render partial: 'image_table_heading' %>
 
 	  <tbody>
-	  	<h1><%= @images.count%></h1>
-	    <%  @images.each do |image| if image.owner == current_user and image.in_trash then %>
+	  	<h1><%= @images.count%> image<% if @images.count > 1 then %>s<% end %> in trash</h1>
+	    <%  @images.each do |image| %>
 	      <tr>
 	        <%= render partial: 'image_row', locals: {image: image} %>
 	      </tr>

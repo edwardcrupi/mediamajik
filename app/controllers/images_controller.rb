@@ -49,7 +49,7 @@ class ImagesController < ApplicationController
   end
 
   def trashed_images
-    @images = Image.where( in_trash: true )
+    @images = Image.where( in_trash: true, owner: current_user )
   end
 
   def untrash_image
@@ -61,6 +61,13 @@ class ImagesController < ApplicationController
   def empty_trash
     images.each do |image| if image.owner == current_user then image.destroy end end
     redirect_to images_path
+  end
+
+  def make_current
+    unless image.root_version?
+      image.make_current
+    end
+    redirect_to image_path image
   end
   
   # POST /images
@@ -98,6 +105,21 @@ class ImagesController < ApplicationController
   # DELETE /images/1
   # DELETE /images/1.json
   def destroy
+    #If image has parent, update children and vice versa
+    image.child_versions.each do |i| unless i.nil?
+      i.parent_image = image.parent_image 
+      i.save! 
+      unless image.parent_image.nil?
+        j = image.parent_image
+        j.child_versions << i
+        j.save
+      end
+    end end
+    unless image.parent_image.nil?
+      j = image.parent_image
+      j.child_versions.delete(image)
+      j.save
+    end
     image.destroy
     respond_to do |format|
       format.html { redirect_to images_url, notice: 'Image was successfully destroyed.' }
@@ -127,6 +149,6 @@ class ImagesController < ApplicationController
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def image_params
-      params.require(:image).permit(:title, :caption, :image, :owner, :in_trash)
+      params.require(:image).permit(:title, :caption, :image, :owner, :in_trash, :parent_image, :child_versions)
     end
 end

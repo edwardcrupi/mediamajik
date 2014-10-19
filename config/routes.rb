@@ -43,6 +43,8 @@ Rails.application.routes.draw do
   post 'images/:id/trash' => 'images#trash_image', as: :trash_image
   post 'images/:id/untrash' => 'images#untrash_image', as: :untrash_image
 
+  # Route for making version the current version of an image
+  patch 'images/:id/make-current' => 'images#make_current', as: :make_current_version
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
