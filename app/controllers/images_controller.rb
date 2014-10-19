@@ -66,6 +66,8 @@ class ImagesController < ApplicationController
   def make_current
     unless image.root_version?
       image.make_current
+      image.v = 0
+      image.save
     end
     redirect_to image_path image
   end
@@ -106,20 +108,14 @@ class ImagesController < ApplicationController
   # DELETE /images/1.json
   def destroy
     #If image has parent, update children and vice versa
-    image.child_versions.each do |i| unless i.nil?
-      i.parent_image = image.parent_image 
-      i.save! 
-      unless image.parent_image.nil?
-        j = image.parent_image
-        j.child_versions << i
-        j.save
-      end
-    end end
-    unless image.parent_image.nil?
-      j = image.parent_image
-      j.child_versions.delete(image)
-      j.save
+    if image.root_version? then
+      newroot = image.child_versions.order(:created_at).last
+      image.child_versions.delete(newroot)
+      image.child_versions.each do |v| v.parent_image = newroot and v.save end
+    else
+      image.child_versions.each do |v| v.parent_image = image.parent_image and v.save end
     end
+
     image.destroy
     respond_to do |format|
       format.html { redirect_to images_url, notice: 'Image was successfully destroyed.' }
@@ -149,6 +145,6 @@ class ImagesController < ApplicationController
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def image_params
-      params.require(:image).permit(:title, :caption, :image, :owner, :in_trash, :parent_image, :child_versions)
+      params.require(:image).permit(:title, :caption, :image, :owner, :in_trash, :parent_image, :child_versions, :v)
     end
 end

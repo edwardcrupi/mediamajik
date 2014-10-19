@@ -2,8 +2,17 @@
 
 <p>
   <strong>Owner:</strong>
-  <%= gallery.id %>
+  <%= gallery.owner.username %>
 </p>
-
+<p>
+  <strong>Name:</strong>
+  <%= gallery.name %>
+</p>
+<% unless gallery.images.empty? %>
+	<% gallery.images.each do |image| %>
+		<%= render partial: 'images/image_row', locals: {image: image} %>
+	<% end else %>
+	<p>There are no images in this gallery!</p>
+<% end %>
 <%= link_to 'Edit', edit_gallery_path(gallery) %> |
 <%= link_to 'Back', images_path %>

@@ -50,23 +50,18 @@ class Image < ActiveRecord::Base
 	end
 
 	def make_current
-		parent = self.parent_image
-		self.child_versions << parent
-		parent.child_versions.delete self
-		parent.parent_image = self
-		self.save!
-		parent.save!
+		self.parent_image = nil
 	end
 
 	def add_child_to image
 	end
 
 	def root_version?
-		return parent_image.nil?
+		return self.parent_image.nil?
 	end
 
 	def leaf_version?
-		return child_versions.empty?
+		return self.child_versions.empty?
 	end
 
 	def in_trash?
