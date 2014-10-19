@@ -12,9 +12,10 @@
 	        <%= link_to(gallery.name, gallery_path(gallery)) %><br>
 	    <% end end %>
 	    <%= link_to 'Add to gallery...', galleries_selection_path(image) %>
-	    <%= link_to 'Share', share_image_selection_path(image) %> 
+	<td><%= unless image.in_trash? then link_to 'Trash image?', trash_image_path(image), method: :post else link_to "IN TRASH.", untrash_image_path(image), method: :post end %></td>
 	</td>
 <% else %>
 	<td> This item is shared with you!</td>
+	<td><%= link_to 'Show', image %></td>	
 <% end %>
-<td><%= unless image.in_trash? then link_to 'Trash image?', trash_image_path(image), method: :post else link_to "IN TRASH.", untrash_image_path(image), method: :post end %></td>
+<td><%= link_to 'Share', share_image_selection_path(image) %></td>

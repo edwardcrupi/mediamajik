@@ -35,14 +35,14 @@
 <%= link_to 'Back', images_path %>
 
 <h1> Older Versions </h1>
-<% unless image.child_versions.count == 0 %>
-  <% image.child_versions.each_with_index do |version, i| %>
+<% unless image.child_versions.count == 0  %>
+  <% image.child_versions.each_with_index do |version, i| if current_user.shared_images.include? version or version.owner == current_user %>
     <%= image_tag version.image_url(:thumb).to_s %>
     Version No: <%= i %>
     <%= link_to 'Add to gallery...', galleries_selection_path(version) %> |
-    <%= link_to 'Share', share_image_selection_path(version) %> |
+    <%= link_to 'Share...', share_image_selection_path(version) %> |
     <%= link_to "Make separate image", make_current_version_path(version), method: :patch %> |
-    <%= link_to "Destroy version", image_path(version), method: :delete %> </br>
-<% end else %>
+    <%= if current_user == image.owner then link_to "Destroy version", image_path(version), method: :delete end%> </br>
+<% end end else %>
   <h4>There are no older versions of this image!</h4>
 <% end %>
