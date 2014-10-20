@@ -46,7 +46,7 @@ class Image < ActiveRecord::Base
 		image_url = "#{temp[0]}_#{self.v}.#{temp[1]}"
 		src = File.join(Rails.root, 'public', image_url)
 		img.write(src)
-		src_file = File.new(src)d
+		src_file = File.new(src)
 		self.image = src_file
 		self.image.recreate_versions!
 	end
