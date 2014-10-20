@@ -13,6 +13,7 @@ class Image < ActiveRecord::Base
 
 	validates :title, :caption, presence: true
 
+	#Sets these values after every save
 	def set_dimensions
 		img = Magick::Image::read("#{Rails.root}/public"+image_url(:image).to_s).first
 		self.width  = img.columns
@@ -22,6 +23,7 @@ class Image < ActiveRecord::Base
 		self.url 	= img.filename
 	end
 
+	#Applies an effect to an image and saves a nuew version
 	def apply_effect effect
 		image_url = "#{Rails.root}/public"+image_url(:image).to_s
 		img = Magick::Image::read(image_url).first
@@ -44,26 +46,27 @@ class Image < ActiveRecord::Base
 		image_url = "#{temp[0]}_#{self.v}.#{temp[1]}"
 		src = File.join(Rails.root, 'public', image_url)
 		img.write(src)
-		src_file = File.new(src)
+		src_file = File.new(src)d
 		self.image = src_file
 		self.image.recreate_versions!
 	end
 
+	#Removes image version tree
 	def make_current
 		self.parent_image = nil
 	end
 
-	def add_child_to image
-	end
-
+	#Returns true if version is at root of version tree
 	def root_version?
 		return self.parent_image.nil?
 	end
 
+	#Returns true if version is at a leaf of version tree
 	def leaf_version?
 		return self.child_versions.empty?
 	end
 
+	#Returns true image is trashed
 	def in_trash?
 		return self.in_trash
 	end

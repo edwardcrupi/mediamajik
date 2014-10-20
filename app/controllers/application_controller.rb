@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  	#Allows us to add a username as a required param
     def configure_permitted_parameters
       	devise_parameter_sanitizer.for(:sign_up) << :username
       	devise_parameter_sanitizer.for(:account_update) << :username

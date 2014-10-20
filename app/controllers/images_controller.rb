@@ -42,27 +42,32 @@ class ImagesController < ApplicationController
     images = current_user.shared_images
   end
 
+  # POST /images/1/trash
   def trash_image
     image.in_trash = true
     image.save
     redirect_to images_path
   end
 
+  # GET images/trashed-images
   def trashed_images
     @images = Image.where( in_trash: true, owner: current_user )
   end
 
+  # POST /images/1/untrash
   def untrash_image
     image.in_trash = false
     image.save
     redirect_to images_path
   end
 
+  # POST /trash/empty-trash
   def empty_trash
     images.each do |image| if image.owner == current_user then image.destroy end end
     redirect_to images_path
   end
 
+  # PATCH images/1/make-current
   def make_current
     unless image.root_version?
       image.make_current
@@ -125,7 +130,6 @@ class ImagesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def image
-    #@image  ||= params[:id] ? Image.find(params[:id]) : Image.new()
     @image  ||= Image.find(params[:id])
   end
 

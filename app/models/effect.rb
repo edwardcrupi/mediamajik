@@ -9,6 +9,7 @@ class Effect < ActiveRecord::Base
  	
 	before_save :set_amounts
 
+	#Calls this before every save
 	def set_amounts
 		case self.effect_type
 		when "Brightness"
@@ -26,6 +27,4 @@ class Effect < ActiveRecord::Base
 		end
 	end
 
-	def combine_effect effect1, effect2
-	end
 end
