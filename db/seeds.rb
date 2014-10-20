@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+Effect.create(:effect_type => "Hue", :amount => 0.5)
+Effect.create(:effect_type => "Saturation", :amount => 0.5)
+Effect.create(:effect_type => "Brightness", :amount => 0.5)
+Effect.create(:effect_type => "Hue", :amount => 1.5)
+Effect.create(:effect_type => "Saturation", :amount => 1.5)
+Effect.create(:effect_type => "Brightness", :amount => 1.5)
