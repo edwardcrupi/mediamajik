@@ -1,10 +1,15 @@
 # README #
 
-This README documents the normal steps to get the MediaMajik app running.
+This README documents the normal steps to get the MediaMajik app running, the app uses postgres rather than sqlite3 so be wary of that.
 
-1. Navigate to the app directory in terminal.
+1. Navigate to the Application's directory.
+2. Restored the backed up db by entering command ```psql -f MediaMajik_development.dumpfile MediaMajik_development```
 2. Enter command ```rails s``` to start the webserver on your localhost (the default port is 3000).
 3. Navigate to localhost:3000 on your browser to see the app running on the default port.
+
+OR ALTERNATIVELY
+
+1. Navigate to http://mediamajik.ninefold-apps.com/ to see the current version of the app deployed on ninefold.
 
 ### What is this repository for? ###
 
@@ -17,7 +22,7 @@ This README documents the normal steps to get the MediaMajik app running.
 * ~~Add ability to upload images~~
 * ~Add ability to apply filter to images~
 * ~Add authentication.~
-* Add versioning, either with paper-trail or using carrierwave. **Half done**
+* ~Add versioning, either with paper-trail or using carrierwave. ~
 * ~Add sharing.~
 * ~~Add galleries~~.
 * ~Add trash~
