@@ -20,12 +20,12 @@ OR ALTERNATIVELY
 
 * ~~Finish off adding the components in the class diagram to the app~~.
 * ~~Add ability to upload images~~
-* ~Add ability to apply filter to images~
-* ~Add authentication.~
-* ~Add versioning, either with paper-trail or using carrierwave.~ *actually neither of these*
-* ~Add sharing.~
+* ~~Add ability to apply filter to images~~
+* ~~Add authentication.~~
+* ~~Add versioning, either with paper-trail or using carrierwave.~~ *actually neither of these*
+* ~~Add sharing.~~
 * ~~Add galleries~~.
-* ~Add trash~
+* ~~Add trash~~
 
 ### Notes ###
 * Changed the structure of the app from what is listed in the class diagram:
